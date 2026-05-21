@@ -1,0 +1,106 @@
+[
+  {
+    "ticker": "AAPL",
+    "title": "Apple reports Q4 FY2024 revenue of $94.9 billion, beats estimates",
+    "summary": "Apple Inc. reported fourth-quarter fiscal 2024 revenue of $94.9 billion, up 6% year-over-year, beating analyst consensus of $94.3 billion. iPhone revenue was $46.2 billion, Services hit a record $24.97 billion. CEO Tim Cook cited strength in emerging markets and AI feature adoption. EPS of $1.64 beat the $1.60 estimate.",
+    "url": "https://example.com/aapl-q4-2024",
+    "source": "Reuters",
+    "published": "2024-10-31"
+  },
+  {
+    "ticker": "AAPL",
+    "title": "Apple Intelligence features roll out with iOS 18.1, early adoption strong",
+    "summary": "Apple began rolling out its Apple Intelligence AI features with iOS 18.1 on October 28. Analysts at Morgan Stanley estimate 20% of iPhone users upgraded within the first week. The writing tools and photo features have received positive reviews, supporting the upgrade cycle thesis ahead of iPhone 16 holiday demand.",
+    "url": "https://example.com/aapl-ios181",
+    "source": "Bloomberg",
+    "published": "2024-10-29"
+  },
+  {
+    "ticker": "AAPL",
+    "title": "Apple supply chain checks indicate strong iPhone 16 holiday demand",
+    "summary": "Supply chain checks from Foxconn and TSMC suggest Apple has increased iPhone 16 Pro production orders by 10% for Q4. Analysts at Barclays raised their price target to $260 from $240, citing better-than-expected sell-through data from China and the US.",
+    "url": "https://example.com/aapl-supply",
+    "source": "Barclays Research",
+    "published": "2024-10-22"
+  },
+  {
+    "ticker": "MSFT",
+    "title": "Microsoft Q1 FY2025 cloud revenue up 22%, Azure grows 33%",
+    "summary": "Microsoft reported Q1 FY2025 revenue of $65.6 billion, up 16% YoY. Azure cloud revenue grew 33% YoY, accelerating from 29% the prior quarter, driven by AI workload demand. Intelligent Cloud segment revenue reached $24.1 billion. CFO Amy Hood guided Q2 Azure growth of 34-35%.",
+    "url": "https://example.com/msft-q1-fy25",
+    "source": "CNBC",
+    "published": "2024-10-30"
+  },
+  {
+    "ticker": "MSFT",
+    "title": "Microsoft Copilot enterprise seats exceed 300 million, monetization accelerating",
+    "summary": "Microsoft disclosed that Copilot for Microsoft 365 now has over 300 million paid seats eligible for the $30/month add-on. Management noted that 70% of Fortune 500 companies are using Azure AI services. Goldman Sachs reiterated Buy with a $500 price target.",
+    "url": "https://example.com/msft-copilot",
+    "source": "Goldman Sachs",
+    "published": "2024-10-24"
+  },
+  {
+    "ticker": "GOOGL",
+    "title": "Alphabet Q3 2024 earnings: Search revenue up 12%, Cloud up 35%",
+    "summary": "Alphabet reported Q3 2024 revenue of $88.3 billion, up 15% YoY, beating the $86.3 billion consensus. Google Search revenue grew 12% to $49.4 billion. Google Cloud hit $11.4 billion, up 35% YoY. YouTube advertising revenue rose 12% to $8.9 billion. EPS of $2.12 beat the $1.85 estimate.",
+    "url": "https://example.com/googl-q3-2024",
+    "source": "Wall Street Journal",
+    "published": "2024-10-29"
+  },
+  {
+    "ticker": "GOOGL",
+    "title": "Google Gemini integration into Search shows early monetization signal",
+    "summary": "Alphabet CFO Anat Ashkenazi noted that AI Overviews in Search are showing higher monetization rates than traditional search results in early tests. The company has 1 billion monthly active users of AI Overviews. Deutsche Bank raised its price target to $210 from $195.",
+    "url": "https://example.com/googl-gemini",
+    "source": "Deutsche Bank",
+    "published": "2024-10-30"
+  },
+  {
+    "ticker": "AMZN",
+    "title": "Amazon Q3 2024: AWS revenue $27.5 billion, up 19%; operating income record",
+    "summary": "Amazon reported Q3 2024 revenue of $158.9 billion, up 11% YoY. AWS grew 19% to $27.5 billion, beating the $27.1 billion estimate. Operating income reached a record $17.4 billion, with AWS margins expanding to 38.1%. CFO Brian Olsavsky guided Q4 operating income of $16-20 billion.",
+    "url": "https://example.com/amzn-q3-2024",
+    "source": "Reuters",
+    "published": "2024-10-31"
+  },
+  {
+    "ticker": "AMZN",
+    "title": "Amazon AWS secures multi-year AI infrastructure contracts with enterprise clients",
+    "summary": "Amazon Web Services disclosed several multi-year AI infrastructure deals worth over $1 billion each, including partnerships with Anthropic and an unnamed European bank. The Trainium2 AI chip is now generally available, offering 4x better price-performance than Nvidia H100 for training workloads, according to AWS benchmarks.",
+    "url": "https://example.com/amzn-aws-deals",
+    "source": "Bloomberg",
+    "published": "2024-10-25"
+  },
+  {
+    "ticker": "NVDA",
+    "title": "Nvidia Blackwell GPU shipments begin, hyperscaler demand exceeds supply",
+    "summary": "Nvidia confirmed that Blackwell GPU shipments began in Q3 FY2025. CEO Jensen Huang noted demand 'far exceeds supply' with a 12-month backlog. Microsoft, Google, Amazon, and Meta have all publicly disclosed accelerating Nvidia GPU purchases. Bank of America raised its price target to $190 from $165.",
+    "url": "https://example.com/nvda-blackwell",
+    "source": "Bank of America",
+    "published": "2024-10-23"
+  },
+  {
+    "ticker": "NVDA",
+    "title": "Nvidia data center revenue on track for $30 billion Q3, analysts raise estimates",
+    "summary": "Supply chain checks and customer disclosures suggest Nvidia's data center revenue for Q3 FY2025 (ending October 2024) will come in near $30 billion, up from $26.3 billion in Q2. Consensus estimates have risen to $32.5 billion for Q4. Wells Fargo reiterated Overweight with a $185 price target.",
+    "url": "https://example.com/nvda-datacenter",
+    "source": "Wells Fargo",
+    "published": "2024-10-28"
+  },
+  {
+    "ticker": "NVDA",
+    "title": "NVDA faces near-term pressure: Taiwan supply constraints may limit upside",
+    "summary": "Taiwan Semiconductor Manufacturing Co. flagged capacity constraints for CoWoS advanced packaging needed for Blackwell GPUs. Some analysts warn that supply limitations could push Nvidia's Q4 guidance below sky-high street expectations. Needham maintained Hold citing valuation at 35x forward earnings.",
+    "url": "https://example.com/nvda-supply-risk",
+    "source": "Needham",
+    "published": "2024-10-21"
+  },
+  {
+    "ticker": "SPY",
+    "title": "S&P 500 posts strong October, up 2.2% on tech earnings beat",
+    "summary": "The S&P 500 gained 2.2% in October 2024, driven by better-than-expected earnings from mega-cap technology companies. The index closed October at 5,705. Bond yields remained elevated with the 10-year Treasury near 4.3%, limiting multiple expansion. Q3 earnings season showed 79% of S&P 500 companies beating estimates.",
+    "url": "https://example.com/spy-oct-2024",
+    "source": "MarketWatch",
+    "published": "2024-10-31"
+  }
+]

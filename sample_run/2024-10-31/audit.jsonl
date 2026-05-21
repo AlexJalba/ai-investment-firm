@@ -1,0 +1,21 @@
+{"ts": "2024-10-31T09:30:01Z", "event": "trading_day.start", "trade_date": "2024-10-31", "tickers": ["AAPL", "MSFT", "GOOGL", "AMZN", "NVDA"]}
+{"ts": "2024-10-31T09:30:04Z", "event": "node.fetch_prices", "tickers": ["AAPL", "MSFT", "GOOGL", "AMZN", "NVDA", "SPY"]}
+{"ts": "2024-10-31T09:30:12Z", "event": "rag.ingested", "count": 13, "source": "yfinance+news"}
+{"ts": "2024-10-31T09:30:45Z", "event": "research.completed", "ticker": "AAPL", "recommendation": "buy", "confidence": 0.82, "num_citations": 3}
+{"ts": "2024-10-31T09:31:10Z", "event": "research.completed", "ticker": "MSFT", "recommendation": "buy", "confidence": 0.85, "num_citations": 2}
+{"ts": "2024-10-31T09:31:35Z", "event": "research.completed", "ticker": "GOOGL", "recommendation": "hold", "confidence": 0.75, "num_citations": 2}
+{"ts": "2024-10-31T09:31:58Z", "event": "research.completed", "ticker": "AMZN", "recommendation": "buy", "confidence": 0.8, "num_citations": 2}
+{"ts": "2024-10-31T09:32:20Z", "event": "research.completed", "ticker": "NVDA", "recommendation": "hold", "confidence": 0.65, "num_citations": 2}
+{"ts": "2024-10-31T09:32:45Z", "event": "pm.proposals_generated", "count": 4, "tickers": ["AAPL", "MSFT", "AMZN", "NVDA"]}
+{"ts": "2024-10-31T09:32:50Z", "event": "guardrail.position_check", "ticker": "NVDA", "result": "rejected", "reason": "Confidence 0.65 below PM threshold with supply risk flag"}
+{"ts": "2024-10-31T09:32:52Z", "event": "risk.approved", "ticker": "MSFT", "notional": 21430.0}
+{"ts": "2024-10-31T09:32:53Z", "event": "risk.hitl_required", "ticker": "AAPL", "notional": 45792.0, "reason": "notional > $50k threshold"}
+{"ts": "2024-10-31T09:32:54Z", "event": "risk.hitl_required", "ticker": "AMZN", "notional": 23186.4, "reason": "first trade in ticker"}
+{"ts": "2024-10-31T09:32:55Z", "event": "hitl.paused", "trade_date": "2024-10-31", "count": 2}
+{"ts": "2024-10-31T09:55:03Z", "event": "hitl.decision", "ticker": "AAPL", "decision": "approve", "notes": "Strong earnings beat. Approve 200 shares.", "adjusted_shares": null}
+{"ts": "2024-10-31T09:56:18Z", "event": "hitl.decision", "ticker": "AMZN", "decision": "approve", "notes": "AWS acceleration confirmed. Approve.", "adjusted_shares": null}
+{"ts": "2024-10-31T10:02:14Z", "event": "trade.filled", "ticker": "AAPL", "side": "BUY", "shares": 200, "fill_price": 228.96, "notional": 45792.0, "commission": 1.0, "slippage": 114.0, "rationale": "Apple Q4 beat: revenue $94.9B vs $94.3B est.", "agent_trace_id": "a1b2c3d4"}
+{"ts": "2024-10-31T10:08:45Z", "event": "trade.filled", "ticker": "AMZN", "side": "BUY", "shares": 120, "fill_price": 193.22, "notional": 23186.4, "commission": 0.6, "slippage": 58.8, "rationale": "Amazon Q3 beat: AWS $27.5B (+19% YoY).", "agent_trace_id": "a1b2c3d4"}
+{"ts": "2024-10-31T10:15:30Z", "event": "trade.filled", "ticker": "MSFT", "side": "BUY", "shares": 50, "fill_price": 428.6, "notional": 21430.0, "commission": 0.25, "slippage": 53.5, "rationale": "Microsoft Azure 33% growth, Copilot 300M seats.", "agent_trace_id": "a1b2c3d4"}
+{"ts": "2024-10-31T15:50:00Z", "event": "report.generated", "trade_date": "2024-10-31", "excel": "sample_run/2024-10-31/daily_report.xlsx", "json": "sample_run/2024-10-31/daily_report.json"}
+{"ts": "2024-10-31T15:50:01Z", "event": "trading_day.end", "trade_date": "2024-10-31", "fills": 3, "end_value": 999771.85}
