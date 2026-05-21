@@ -64,6 +64,7 @@ def audit(event: str, audit_log_path: str = "./data/audit.jsonl", **kwargs: Any)
         **kwargs,
     }
     with _audit_lock:
+        Path(audit_log_path).parent.mkdir(parents=True, exist_ok=True)
         with open(audit_log_path, "a") as f:
             f.write(json.dumps(record) + "\n")
 

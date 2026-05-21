@@ -14,7 +14,7 @@ logger = get_logger(__name__)
 # ── Prompt injection defense ───────────────────────────────────────────────────
 
 _INJECTION_PATTERNS = [
-    r"ignore (all |previous |above |prior )?instructions",
+    r"ignore\s+(?:\w+\s+){0,3}instructions",
     r"system prompt",
     r"you are now",
     r"disregard",
