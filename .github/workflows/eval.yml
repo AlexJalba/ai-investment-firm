@@ -28,7 +28,9 @@ jobs:
           cache: pip
 
       - name: Install dependencies
-        run: pip install -e ".[dev]"
+        run: |
+          pip install --upgrade pip setuptools wheel
+          pip install -e ".[dev]"
 
       - name: Pre-seed RAG store from bundled news
         env:
