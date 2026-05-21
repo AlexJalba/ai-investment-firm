@@ -10,7 +10,6 @@ from src.config import get_settings
 from src.guardrails.validators import (
     GuardrailViolation,
     check_daily_loss,
-    check_position_size,
     requires_hitl,
 )
 from src.observability.logger import audit, get_logger, get_tracer
@@ -60,7 +59,7 @@ def run_risk_agent(
     """Returns (approved_trades, hitl_pending_trades)."""
     cfg = get_settings()
 
-    with tracer.start_as_current_span("risk_agent") as span:
+    with tracer.start_as_current_span("risk_agent"):
         # Hard guardrail: daily loss limit
         try:
             check_daily_loss(snapshot.total_value, start_of_day_value)

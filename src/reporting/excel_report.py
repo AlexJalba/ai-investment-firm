@@ -1,10 +1,6 @@
 """Excel daily report generator using openpyxl."""
 from __future__ import annotations
 
-from datetime import datetime
-from pathlib import Path
-from typing import Optional
-
 import openpyxl
 from openpyxl.styles import Alignment, Font, PatternFill
 from openpyxl.utils import get_column_letter
@@ -31,7 +27,7 @@ def write_excel_report(
     start_of_day_value: float,
     filled_trades: list[dict],
     research_reports: list[dict],
-    benchmark_pct: Optional[float],
+    benchmark_pct: float | None,
     narrative: str,
 ) -> None:
     wb = openpyxl.Workbook()

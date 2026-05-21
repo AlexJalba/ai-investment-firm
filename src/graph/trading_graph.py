@@ -1,9 +1,8 @@
 """Main LangGraph trading day graph."""
 from __future__ import annotations
 
-import json
 import uuid
-from datetime import date, datetime
+from datetime import date
 
 from langchain_core.messages import AIMessage, HumanMessage
 from langgraph.checkpoint.memory import MemorySaver

@@ -2,14 +2,9 @@
 from __future__ import annotations
 
 import json
-import os
-import shutil
-import tempfile
 from datetime import date, timedelta
 from pathlib import Path
-from typing import Optional
 
-import pandas as pd
 import yfinance as yf
 
 from src.config import get_settings

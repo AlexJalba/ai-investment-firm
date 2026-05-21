@@ -1,8 +1,5 @@
 """Tests for the RAG store."""
 import os
-import tempfile
-
-import pytest
 
 
 def test_ingest_and_retrieve(tmp_path):

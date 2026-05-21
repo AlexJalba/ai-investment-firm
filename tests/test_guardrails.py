@@ -4,13 +4,11 @@ import pytest
 from src.guardrails.validators import (
     GuardrailViolation,
     ResearchOutput,
-    TradeProposal,
     check_daily_loss,
     check_position_size,
     requires_hitl,
     sanitize_web_text,
 )
-from src.portfolio.models import Side
 
 
 def test_sanitize_removes_injection():

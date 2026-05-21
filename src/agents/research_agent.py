@@ -1,8 +1,6 @@
 """Research Agent — retrieves evidence via RAG and produces cited analysis."""
 from __future__ import annotations
 
-import json
-
 from langchain_anthropic import ChatAnthropic
 from langchain_core.messages import HumanMessage, SystemMessage
 

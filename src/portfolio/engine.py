@@ -2,21 +2,19 @@
 from __future__ import annotations
 
 from datetime import UTC, datetime
-from typing import Optional
 
 from src.config import get_settings
 from src.observability.logger import audit, get_logger
 from src.portfolio.database import get_session
 from src.portfolio.models import (
-    DailyPnLORM,
     FillResult,
     Holding,
     HoldingORM,
     PortfolioSnapshot,
     PortfolioStateORM,
     Side,
-    TradeORM,
     TradeOrder,
+    TradeORM,
 )
 
 logger = get_logger(__name__)
@@ -43,7 +41,7 @@ class PaperTradingEngine:
                 session.commit()
                 logger.info("portfolio.initialized", cash=self.cfg.starting_capital)
 
-    def get_snapshot(self, market_prices: Optional[dict[str, float]] = None) -> PortfolioSnapshot:
+    def get_snapshot(self, market_prices: dict[str, float] | None = None) -> PortfolioSnapshot:
         with get_session(self.db_path) as session:
             state = session.query(PortfolioStateORM).order_by(PortfolioStateORM.id.desc()).first()
             holdings_orm = session.query(HoldingORM).all()

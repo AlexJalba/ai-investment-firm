@@ -1,8 +1,7 @@
 """News ingestion — RSS feeds and yfinance news for RAG grounding."""
 from __future__ import annotations
 
-from datetime import datetime, timedelta
-from typing import Optional
+from datetime import datetime
 
 import feedparser
 import yfinance as yf

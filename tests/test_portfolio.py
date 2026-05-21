@@ -1,6 +1,5 @@
 """Tests for the paper trading engine."""
 import os
-import tempfile
 
 import pytest
 
@@ -45,7 +44,7 @@ def test_buy_then_sell(engine):
     engine.execute(buy, market_price=150.0)
 
     sell = TradeOrder(ticker="AAPL", side=Side.SELL, shares=10, rationale="take profit")
-    fill = engine.execute(sell, market_price=160.0)
+    engine.execute(sell, market_price=160.0)
 
     snap = engine.get_snapshot()
     assert snap.holdings == []

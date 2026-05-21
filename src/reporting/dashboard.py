@@ -2,14 +2,10 @@
 from __future__ import annotations
 
 import json
-import os
-from datetime import datetime
 from pathlib import Path
-from typing import Optional
 
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import FileResponse, HTMLResponse
-from fastapi.staticfiles import StaticFiles
 
 from src.config import get_settings
 from src.market_data.prices import get_prices

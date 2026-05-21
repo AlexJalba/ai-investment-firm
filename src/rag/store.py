@@ -2,8 +2,6 @@
 from __future__ import annotations
 
 import hashlib
-from datetime import datetime
-from typing import Optional
 
 import chromadb
 from chromadb.utils import embedding_functions
@@ -25,7 +23,6 @@ class RAGStore:
         # Use OpenAI embeddings via Anthropic-compatible endpoint if available,
         # otherwise fall back to the built-in sentence-transformer model.
         try:
-            from langchain_anthropic import ChatAnthropic
             ef = embedding_functions.OpenAIEmbeddingFunction(
                 api_key=cfg.anthropic_api_key,
                 model_name="text-embedding-3-small",
@@ -68,7 +65,7 @@ class RAGStore:
     def retrieve(
         self,
         query: str,
-        ticker: Optional[str] = None,
+        ticker: str | None = None,
         n_results: int = 5,
     ) -> list[dict]:
         """Retrieve relevant chunks. Returns list of {text, source, url, score}."""

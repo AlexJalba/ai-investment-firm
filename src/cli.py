@@ -1,9 +1,6 @@
 """CLI entrypoint — run a trading day, start the dashboard, or run the eval."""
 from __future__ import annotations
 
-from datetime import date
-from typing import Optional
-
 import typer
 from rich.console import Console
 
@@ -16,7 +13,7 @@ DEFAULT_TICKERS = ["AAPL", "MSFT", "GOOGL", "AMZN", "NVDA"]
 @app.command()
 def trade(
     tickers: list[str] = typer.Argument(None, help="Tickers to trade (default: tech mega-caps)"),
-    date: Optional[str] = typer.Option(None, "--date", "-d", help="Trade date YYYY-MM-DD (default: today)"),
+    date: str | None = typer.Option(None, "--date", "-d", help="Trade date YYYY-MM-DD (default: today)"),
     thread_id: str = typer.Option("default", "--thread", help="LangGraph thread ID for state persistence"),
 ):
     """Run one trading day end-to-end."""
@@ -48,6 +45,7 @@ def eval(
 ):
     """Run the eval harness over a historical date range."""
     from datetime import date as dt
+
     from eval.harness import run_eval
 
     tickers = tickers or DEFAULT_TICKERS

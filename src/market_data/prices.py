@@ -1,9 +1,7 @@
 """Market data via yfinance — prices, OHLCV, sector info."""
 from __future__ import annotations
 
-import functools
-from datetime import date, datetime, timedelta
-from typing import Optional
+from datetime import date, datetime
 
 import pandas as pd
 import yfinance as yf
@@ -70,7 +68,6 @@ def get_sector(ticker: str) -> str:
 
 def is_market_open() -> bool:
     """Rough check — US equities trade 9:30–16:00 ET Mon–Fri."""
-    from datetime import timezone
     import zoneinfo
 
     et = zoneinfo.ZoneInfo("America/New_York")

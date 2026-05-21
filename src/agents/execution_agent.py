@@ -4,7 +4,7 @@ from __future__ import annotations
 from src.config import get_settings
 from src.observability.logger import audit, get_logger, get_tracer
 from src.portfolio.engine import PaperTradingEngine
-from src.portfolio.models import FillResult, Side, TradeOrder
+from src.portfolio.models import Side, TradeOrder
 
 logger = get_logger(__name__)
 tracer = get_tracer("execution_agent")

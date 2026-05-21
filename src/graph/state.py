@@ -1,14 +1,12 @@
 """LangGraph state schema for the trading day graph."""
 from __future__ import annotations
 
-from datetime import date, datetime
-from typing import Annotated, Optional
+from datetime import datetime
+from typing import Annotated
 
 from langgraph.graph.message import add_messages
 from pydantic import BaseModel, Field
 from typing_extensions import TypedDict
-
-from src.portfolio.models import FillResult, PortfolioSnapshot, TradeOrder
 
 
 class AgentMessage(BaseModel):
@@ -28,7 +26,7 @@ class TradingDayState(TypedDict):
     research_reports: list[dict]             # one per ticker
 
     # ── Portfolio state ────────────────────────────────────────────────────────
-    portfolio_snapshot: Optional[dict]       # serialized PortfolioSnapshot
+    portfolio_snapshot: dict | None       # serialized PortfolioSnapshot
     start_of_day_value: float
 
     # ── Proposed trades ────────────────────────────────────────────────────────

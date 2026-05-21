@@ -2,13 +2,12 @@
 from __future__ import annotations
 
 import re
-from typing import Any
 
 from pydantic import BaseModel, field_validator
 
 from src.config import get_settings
 from src.observability.logger import audit, get_logger
-from src.portfolio.models import Side, TradeOrder
+from src.portfolio.models import Side
 
 logger = get_logger(__name__)
 

@@ -1,9 +1,6 @@
 """Human-in-the-Loop Risk Committee — CLI prompt for approving/rejecting trades."""
 from __future__ import annotations
 
-import json
-from typing import Optional
-
 from rich.console import Console
 from rich.panel import Panel
 from rich.table import Table

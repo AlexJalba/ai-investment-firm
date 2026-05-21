@@ -1,9 +1,8 @@
 """Domain models for the paper portfolio."""
 from __future__ import annotations
 
-from datetime import date, datetime
-from enum import Enum
-from typing import Optional
+from datetime import datetime
+from enum import StrEnum
 
 from pydantic import BaseModel, Field, model_validator
 from sqlalchemy import Column, Date, DateTime, Float, Integer, String, Text
@@ -63,7 +62,7 @@ class DailyPnLORM(Base):
 
 # ── Pydantic schemas ────────────────────────────────────────────────────────────
 
-class Side(str, Enum):
+class Side(StrEnum):
     BUY = "BUY"
     SELL = "SELL"
 
@@ -72,12 +71,12 @@ class TradeOrder(BaseModel):
     ticker: str
     side: Side
     shares: float = Field(gt=0)
-    limit_price: Optional[float] = None
+    limit_price: float | None = None
     rationale: str = ""
     agent_trace_id: str = ""
 
     @model_validator(mode="after")
-    def ticker_upper(self) -> "TradeOrder":
+    def ticker_upper(self) -> TradeOrder:
         self.ticker = self.ticker.upper()
         return self
 

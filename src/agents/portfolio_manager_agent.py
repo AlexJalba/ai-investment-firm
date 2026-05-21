@@ -2,7 +2,6 @@
 from __future__ import annotations
 
 import json
-from typing import Optional
 
 from langchain_anthropic import ChatAnthropic
 from langchain_core.messages import HumanMessage, SystemMessage
@@ -10,7 +9,7 @@ from langchain_core.messages import HumanMessage, SystemMessage
 from src.config import get_settings
 from src.guardrails.validators import TradeProposal, check_position_size
 from src.observability.logger import audit, get_logger, get_tracer
-from src.portfolio.models import PortfolioSnapshot, Side
+from src.portfolio.models import PortfolioSnapshot
 
 logger = get_logger(__name__)
 tracer = get_tracer("portfolio_manager")
@@ -43,7 +42,7 @@ def run_portfolio_manager(
 ) -> list[dict]:
     cfg = get_settings()
 
-    with tracer.start_as_current_span("portfolio_manager") as span:
+    with tracer.start_as_current_span("portfolio_manager"):
         # Build context for the PM
         portfolio_context = _format_portfolio(snapshot, market_prices)
         research_context = json.dumps(research_reports, indent=2)

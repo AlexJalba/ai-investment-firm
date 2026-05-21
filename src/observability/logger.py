@@ -1,8 +1,6 @@
 """Structured logging + append-only audit log for every agent/tool/trade event."""
 import json
-import os
 import threading
-import time
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
