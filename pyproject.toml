@@ -46,7 +46,6 @@ dependencies = [
     "python-dotenv>=1.0.0",
     "rich>=13.9.0",
     "typer>=0.13.0",
-    "feedparser>=6.0.0",
 ]
 
 [project.optional-dependencies]

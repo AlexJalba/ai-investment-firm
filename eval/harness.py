@@ -90,6 +90,14 @@ def run_eval(
     cfg = get_settings()
     configure_logging(cfg.log_level, cfg.audit_log_path, cfg.otlp_endpoint)
 
+    # Always start from a clean portfolio so reruns are reproducible
+    import src.portfolio.database as db_module
+    db_path = Path("./data/portfolio.db")
+    if db_path.exists():
+        db_path.unlink()
+    db_module._engine = None
+    db_module._SessionLocal = None
+
     eval_path = Path(eval_dir)
     eval_path.mkdir(parents=True, exist_ok=True)
 

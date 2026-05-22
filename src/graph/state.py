@@ -1,19 +1,10 @@
 """LangGraph state schema for the trading day graph."""
 from __future__ import annotations
 
-from datetime import datetime
 from typing import Annotated
 
 from langgraph.graph.message import add_messages
-from pydantic import BaseModel, Field
 from typing_extensions import TypedDict
-
-
-class AgentMessage(BaseModel):
-    role: str           # agent name
-    content: str
-    timestamp: datetime = Field(default_factory=datetime.utcnow)
-    citations: list[str] = Field(default_factory=list)
 
 
 class TradingDayState(TypedDict):

@@ -124,3 +124,27 @@ def check_daily_loss(current_value: float, start_of_day_value: float) -> None:
 def requires_hitl(shares: float, price: float) -> bool:
     cfg = get_settings()
     return (shares * price) > cfg.trade_notional_hitl_threshold
+
+
+def check_sector_concentration(
+    ticker: str,
+    shares: float,
+    price: float,
+    holdings: list,
+    market_prices: dict[str, float],
+    portfolio_value: float,
+) -> None:
+    from src.market_data.prices import get_sector
+    cfg = get_settings()
+    sector = get_sector(ticker)
+    new_notional = shares * price
+    sector_total = new_notional
+    for h in holdings:
+        if get_sector(h.ticker) == sector:
+            h_price = market_prices.get(h.ticker, h.cost_basis)
+            sector_total += h.shares * h_price
+    pct = sector_total / portfolio_value if portfolio_value > 0 else 1.0
+    if pct > cfg.max_sector_concentration:
+        raise GuardrailViolation(
+            f"Sector concentration {pct:.1%} exceeds limit {cfg.max_sector_concentration:.1%} for sector '{sector}'"
+        )

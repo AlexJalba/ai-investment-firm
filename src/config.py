@@ -29,16 +29,11 @@ class Settings(BaseSettings):
 
     # RAG
     chroma_persist_dir: str = "./data/chroma"
-    embedding_model: str = "text-embedding-3-small"
 
     # Observability
     log_level: str = "INFO"
     audit_log_path: str = "./data/audit.jsonl"
     otlp_endpoint: str = ""
-
-    # Dashboard
-    dashboard_host: str = "0.0.0.0"
-    dashboard_port: int = 8080
 
     # Reporting
     reports_dir: str = "./data/reports"

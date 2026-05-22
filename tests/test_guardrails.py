@@ -1,5 +1,6 @@
 """Tests for guardrails — injection defense, position sizing, schema validation."""
 import os
+from unittest.mock import patch
 
 import pytest
 
@@ -8,6 +9,7 @@ from src.guardrails.validators import (
     ResearchOutput,
     check_daily_loss,
     check_position_size,
+    check_sector_concentration,
     requires_hitl,
     sanitize_web_text,
 )
@@ -82,3 +84,26 @@ def test_requires_hitl_true():
 
 def test_requires_hitl_false():
     assert requires_hitl(10, 100.0) is False  # $1k notional
+
+
+def test_sector_concentration_ok():
+    with patch("src.market_data.prices.get_sector", return_value="Technology"):
+        check_sector_concentration("AAPL", 10, 100.0, [], {}, 1_000_000)  # 0.1% — fine
+
+
+def test_sector_concentration_violation():
+    class FakeHolding:
+        ticker = "MSFT"
+        shares = 1000
+        cost_basis = 200.0
+
+    with patch("src.market_data.prices.get_sector", return_value="Technology"):
+        with pytest.raises(GuardrailViolation, match="Sector concentration"):
+            # New buy: 1000 * 300 = $300k, existing MSFT: 1000 * 300 = $300k
+            # Total sector = $600k / $1M = 60% > 30% limit
+            check_sector_concentration(
+                "AAPL", 1000, 300.0,
+                [FakeHolding()],
+                {"MSFT": 300.0},
+                1_000_000,
+            )

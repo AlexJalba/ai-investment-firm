@@ -10,6 +10,7 @@ from src.config import get_settings
 from src.guardrails.validators import (
     GuardrailViolation,
     check_daily_loss,
+    check_sector_concentration,
     requires_hitl,
 )
 from src.observability.logger import audit, get_logger, get_tracer
@@ -41,13 +42,6 @@ Flag for human review (requires_hitl=true) if:
 - Confidence 0.3–0.5
 - First trade in a new ticker with no prior holding
 """
-
-
-class RiskAssessment:
-    approved: bool
-    risk_flags: list[str]
-    requires_hitl: bool
-    adjusted_shares: float | None
 
 
 def run_risk_agent(
@@ -82,6 +76,12 @@ def run_risk_agent(
                 assessment = assessment_map.get(ticker, {"approved": True, "risk_flags": [], "requires_hitl": False, "adjusted_shares": None})
                 if not assessment.get("approved", False):
                     audit("risk.rejected", audit_log_path=cfg.audit_log_path, ticker=ticker, flags=assessment.get("risk_flags", []))
+                    continue
+                try:
+                    check_sector_concentration(ticker, shares, price, snapshot.holdings, market_prices, snapshot.total_value)
+                except GuardrailViolation as e:
+                    audit("risk.sector_halt", audit_log_path=cfg.audit_log_path, ticker=ticker, reason=str(e))
+                    logger.warning("risk.sector_concentration_exceeded", ticker=ticker, reason=str(e))
                     continue
                 enriched = {**proposal, "shares": shares, "risk_flags": assessment.get("risk_flags", [])}
                 if requires_hitl(shares, price) or assessment.get("requires_hitl", False):
@@ -145,6 +145,13 @@ def run_risk_agent(
                     flags=assessment.get("risk_flags", []),
                 )
                 logger.info("risk.rejected", ticker=ticker, flags=assessment.get("risk_flags", []))
+                continue
+
+            try:
+                check_sector_concentration(ticker, shares, price, snapshot.holdings, market_prices, snapshot.total_value)
+            except GuardrailViolation as e:
+                audit("risk.sector_halt", audit_log_path=cfg.audit_log_path, ticker=ticker, reason=str(e))
+                logger.warning("risk.sector_concentration_exceeded", ticker=ticker, reason=str(e))
                 continue
 
             enriched = {**proposal, "shares": shares, "risk_flags": assessment.get("risk_flags", [])}
