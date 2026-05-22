@@ -34,7 +34,24 @@ def get_current_price(ticker: str) -> float:
         raise
 
 
-def get_prices(tickers: list[str]) -> dict[str, float]:
+def get_prices(tickers: list[str], trade_date: str | None = None) -> dict[str, float]:
+    from src.config import get_settings
+    if get_settings().mock_llm and trade_date:
+        from eval.data_loader import load_prices
+        bundled = load_prices()
+        result = {}
+        for ticker in tickers:
+            ticker_prices = bundled.get(ticker, {})
+            # Use exact date or fall back to most recent available date
+            price = ticker_prices.get(trade_date)
+            if price is None:
+                past_dates = sorted(d for d in ticker_prices if d <= trade_date)
+                if past_dates:
+                    price = ticker_prices[past_dates[-1]]
+            if price:
+                result[ticker] = price
+        return result
+
     result = {}
     for ticker in tickers:
         try:

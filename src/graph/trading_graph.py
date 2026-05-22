@@ -29,7 +29,7 @@ tracer = get_tracer("trading_graph")
 
 def node_fetch_prices(state: TradingDayState) -> dict:
     tickers = state["tickers"] + [get_settings().benchmark_ticker]
-    prices = get_prices(tickers)
+    prices = get_prices(tickers, trade_date=state["trade_date"])
     logger.info("node.fetch_prices", tickers=list(prices.keys()))
     return {
         "market_prices": prices,

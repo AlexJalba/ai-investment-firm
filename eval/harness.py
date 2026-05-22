@@ -28,6 +28,21 @@ def compute_portfolio_return(start_value: float, end_value: float) -> float:
 
 
 def compute_benchmark_return(ticker: str, start: date, end: date) -> float:
+    from src.config import get_settings
+    if get_settings().mock_llm:
+        from eval.data_loader import load_prices
+        bundled = load_prices()
+        prices = bundled.get(ticker, {})
+        days = sorted(prices.keys())
+        start_str, end_str = start.isoformat(), end.isoformat()
+        start_days = [d for d in days if d >= start_str]
+        end_days = [d for d in days if d <= end_str]
+        if not start_days or not end_days:
+            return 0.0
+        p_start = prices[start_days[0]]
+        p_end = prices[end_days[-1]]
+        return (p_end - p_start) / p_start if p_start else 0.0
+
     df = yf.download(ticker, start=start, end=end + timedelta(days=1), progress=False, auto_adjust=True)
     if df.empty or len(df) < 2:
         return 0.0
@@ -111,8 +126,9 @@ def run_eval(
             logger.error("eval.day_failed", date=date_str, error=str(e))
 
     # ── Performance metrics ────────────────────────────────────────────────────
-    if portfolio_values:
-        total_return = compute_portfolio_return(cfg.starting_capital, portfolio_values[-1])
+    valid_values = [r["end_value"] for r in daily_results if r["end_value"] > cfg.starting_capital * 0.5]
+    if valid_values:
+        total_return = compute_portfolio_return(cfg.starting_capital, valid_values[-1])
     else:
         total_return = 0.0
 

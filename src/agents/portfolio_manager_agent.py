@@ -45,10 +45,13 @@ def run_portfolio_manager(
     if cfg.mock_llm:
         from eval.fixtures import TRADE_PROPOSALS
         tickers_in_research = {r["ticker"] for r in research_reports}
+        held_tickers = {h.ticker for h in snapshot.holdings}
         proposals = []
         for p in TRADE_PROPOSALS:
             if p["ticker"] not in tickers_in_research:
                 continue
+            if p["ticker"] in held_tickers:
+                continue  # already own it — hold, don't double-buy
             price = market_prices.get(p["ticker"], 0)
             if price:
                 try:
