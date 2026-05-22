@@ -42,6 +42,24 @@ def run_portfolio_manager(
 ) -> list[dict]:
     cfg = get_settings()
 
+    if cfg.mock_llm:
+        from eval.fixtures import TRADE_PROPOSALS
+        tickers_in_research = {r["ticker"] for r in research_reports}
+        proposals = []
+        for p in TRADE_PROPOSALS:
+            if p["ticker"] not in tickers_in_research:
+                continue
+            price = market_prices.get(p["ticker"], 0)
+            if price:
+                try:
+                    check_position_size(p["ticker"], p["shares"], price, snapshot.total_value)
+                    proposals.append(p)
+                except Exception:
+                    pass
+        audit("pm.proposals_generated", audit_log_path=cfg.audit_log_path,
+              count=len(proposals), tickers=[p["ticker"] for p in proposals])
+        return proposals
+
     with tracer.start_as_current_span("portfolio_manager"):
         # Build context for the PM
         portfolio_context = _format_portfolio(snapshot, market_prices)

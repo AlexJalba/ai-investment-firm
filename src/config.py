@@ -43,6 +43,9 @@ class Settings(BaseSettings):
     # Reporting
     reports_dir: str = "./data/reports"
 
+    # Testing
+    mock_llm: bool = False
+
 
 _settings: Settings | None = None
 

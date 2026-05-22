@@ -10,6 +10,7 @@ import yfinance as yf
 from src.config import get_settings
 from src.graph.trading_graph import run_trading_day
 from src.observability.logger import configure_logging, get_logger
+from src.portfolio.engine import PaperTradingEngine
 
 logger = get_logger(__name__)
 
@@ -92,8 +93,10 @@ def run_eval(
         logger.info("eval.trading_day", date=date_str)
         try:
             state = run_trading_day(tickers, trade_date=date_str, thread_id=f"eval-{date_str}")
-            snap = state.get("portfolio_snapshot") or {}
-            end_val = snap.get("total_value", cfg.starting_capital)
+            # Read end-of-day value from DB — state snapshot is captured before execution
+            engine = PaperTradingEngine()
+            end_snap = engine.get_snapshot(state.get("market_prices"))
+            end_val = end_snap.total_value
             start_val = state.get("start_of_day_value", cfg.starting_capital)
 
             daily_results.append({
@@ -116,7 +119,7 @@ def run_eval(
     benchmark_return = compute_benchmark_return(cfg.benchmark_ticker, start_date, end_date)
     alpha = total_return - benchmark_return
 
-    grounding_score = compute_grounding_score(eval_path / "reports")
+    grounding_score = compute_grounding_score(Path(cfg.reports_dir))
     hitl_stats = compute_hitl_rate(cfg.audit_log_path)
 
     report = {

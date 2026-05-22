@@ -34,11 +34,11 @@ jobs:
 
       - name: Pre-seed RAG store from bundled news
         env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          ANTHROPIC_API_KEY: "mock-key-not-used"
+          MOCK_LLM: "true"
         run: |
           python - <<'EOF'
           import os, json
-          os.environ.setdefault("ANTHROPIC_API_KEY", os.environ["ANTHROPIC_API_KEY"])
           from eval.data_loader import load_news
           from src.rag.store import RAGStore
           store = RAGStore()
@@ -49,7 +49,8 @@ jobs:
 
       - name: Run eval harness
         env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          ANTHROPIC_API_KEY: "mock-key-not-used"
+          MOCK_LLM: "true"
         run: |
           TICKERS=$(echo "${{ github.event.inputs.tickers }}" | tr ',' ' ')
           python -m src.cli eval $TICKERS \

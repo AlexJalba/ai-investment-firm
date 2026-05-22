@@ -40,29 +40,33 @@ def run_reporting_agent(
     with tracer.start_as_current_span("reporting_agent") as span:
         span.set_attribute("trade_date", trade_date)
 
-        # ── LLM narrative ────────────────────────────────────────────────────
         pnl = snapshot.total_value - start_of_day_value
         pnl_pct = pnl / start_of_day_value if start_of_day_value else 0
 
-        llm = ChatAnthropic(
-            model=cfg.research_model,  # cheap model — narrative only
-            api_key=cfg.anthropic_api_key,
-            max_tokens=512,
-        )
+        # ── LLM narrative ────────────────────────────────────────────────────
+        if cfg.mock_llm:
+            from eval.fixtures import DAILY_NARRATIVE
+            narrative = DAILY_NARRATIVE
+        else:
+            llm = ChatAnthropic(
+                model=cfg.research_model,  # cheap model — narrative only
+                api_key=cfg.anthropic_api_key,
+                max_tokens=512,
+            )
 
-        context = (
-            f"Date: {trade_date}\n"
-            f"Start value: ${start_of_day_value:,.2f}\n"
-            f"End value: ${snapshot.total_value:,.2f}\n"
-            f"P&L: ${pnl:+,.2f} ({pnl_pct:+.2%})\n"
-            f"Benchmark (SPY): {benchmark_pct:+.2%}\n" if benchmark_pct is not None else ""
-            f"Trades executed: {len(filled_trades)}\n"
-            f"Trades: {json.dumps(filled_trades, default=str)}\n"
-            f"Research: {json.dumps([{k: r[k] for k in ('ticker','recommendation','sentiment')} for r in research_reports])}"
-        )
+            context = (
+                f"Date: {trade_date}\n"
+                f"Start value: ${start_of_day_value:,.2f}\n"
+                f"End value: ${snapshot.total_value:,.2f}\n"
+                f"P&L: ${pnl:+,.2f} ({pnl_pct:+.2%})\n"
+                f"Benchmark (SPY): {benchmark_pct:+.2%}\n" if benchmark_pct is not None else ""
+                f"Trades executed: {len(filled_trades)}\n"
+                f"Trades: {json.dumps(filled_trades, default=str)}\n"
+                f"Research: {json.dumps([{k: r[k] for k in ('ticker','recommendation','sentiment')} for r in research_reports])}"
+            )
 
-        messages = [SystemMessage(content=SYSTEM_PROMPT), HumanMessage(content=context)]
-        narrative = llm.invoke(messages).content
+            messages = [SystemMessage(content=SYSTEM_PROMPT), HumanMessage(content=context)]
+            narrative = llm.invoke(messages).content
 
         # ── Excel report ─────────────────────────────────────────────────────
         reports_dir = Path(cfg.reports_dir) / trade_date

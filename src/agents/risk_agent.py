@@ -71,6 +71,28 @@ def run_risk_agent(
         if not proposals:
             return [], []
 
+        if cfg.mock_llm:
+            from eval.fixtures import RISK_ASSESSMENTS
+            assessment_map = {a["ticker"]: a for a in RISK_ASSESSMENTS}
+            approved, hitl_pending = [], []
+            for proposal in proposals:
+                ticker = proposal["ticker"]
+                price = market_prices.get(ticker, 0)
+                shares = proposal["shares"]
+                assessment = assessment_map.get(ticker, {"approved": True, "risk_flags": [], "requires_hitl": False, "adjusted_shares": None})
+                if not assessment.get("approved", False):
+                    audit("risk.rejected", audit_log_path=cfg.audit_log_path, ticker=ticker, flags=assessment.get("risk_flags", []))
+                    continue
+                enriched = {**proposal, "shares": shares, "risk_flags": assessment.get("risk_flags", [])}
+                if requires_hitl(shares, price) or assessment.get("requires_hitl", False):
+                    hitl_pending.append(enriched)
+                    audit("risk.hitl_required", audit_log_path=cfg.audit_log_path, ticker=ticker, notional=shares * price)
+                else:
+                    approved.append(enriched)
+                    audit("risk.approved", audit_log_path=cfg.audit_log_path, ticker=ticker)
+            logger.info("risk.summary", approved=len(approved), hitl=len(hitl_pending))
+            return approved, hitl_pending
+
         llm = ChatAnthropic(
             model=cfg.risk_model,
             api_key=cfg.anthropic_api_key,

@@ -206,14 +206,15 @@ def run_trading_day(
     with tracer.start_as_current_span("trading_day") as span:
         span.set_attribute("trade_date", trade_date)
 
-        # Run until HITL interrupt (or END if no HITL trades)
+        # Run until HITL interrupt point
         state = graph.invoke(initial_state, config)
 
-        # If there are pending HITL trades, the graph paused — resume after committee
+        # Always resume — the graph always pauses at interrupt_before=["hitl"].
+        # If there are pending HITL trades, the human reviews them first.
+        # If there are none, we still need to resume so execution and reporting run.
         pending = state.get("pending_hitl", [])
         if pending:
             audit("hitl.paused", trade_date=trade_date, count=len(pending), audit_log_path=cfg.audit_log_path)
-            # Re-invoke to resume from the hitl node (already handled in node_hitl via run_risk_committee)
-            state = graph.invoke(None, config)
+        state = graph.invoke(None, config)
 
     return state

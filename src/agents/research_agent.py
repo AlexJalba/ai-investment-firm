@@ -36,6 +36,14 @@ def run_research_agent(ticker: str, rag_store: RAGStore) -> dict:
     """Produce a research report for a single ticker."""
     cfg = get_settings()
 
+    if cfg.mock_llm:
+        from eval.fixtures import RESEARCH_REPORTS
+        result = RESEARCH_REPORTS.get(ticker, RESEARCH_REPORTS.get("SPY"))
+        audit("research.completed", audit_log_path=cfg.audit_log_path,
+              ticker=ticker, recommendation=result["recommendation"],
+              confidence=result["confidence"], num_citations=len(result["citations"]))
+        return result
+
     with tracer.start_as_current_span("research_agent") as span:
         span.set_attribute("ticker", ticker)
 
