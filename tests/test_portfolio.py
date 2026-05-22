@@ -11,9 +11,11 @@ from src.portfolio.models import Side, TradeOrder
 def engine(tmp_path):
     os.environ.setdefault("ANTHROPIC_API_KEY", "test-key")
     db = str(tmp_path / "test.db")
-    # Override starting capital via env
     import src.config as cfg_module
+    import src.portfolio.database as db_module
     cfg_module._settings = None
+    db_module._engine = None
+    db_module._SessionLocal = None
     os.environ["STARTING_CAPITAL"] = "100000"
     return PaperTradingEngine(db_path=db)
 

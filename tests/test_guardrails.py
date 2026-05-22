@@ -1,4 +1,6 @@
 """Tests for guardrails — injection defense, position sizing, schema validation."""
+import os
+
 import pytest
 
 from src.guardrails.validators import (
@@ -9,6 +11,13 @@ from src.guardrails.validators import (
     requires_hitl,
     sanitize_web_text,
 )
+
+
+@pytest.fixture(autouse=True)
+def set_env():
+    os.environ.setdefault("ANTHROPIC_API_KEY", "test-key")
+    import src.config as cfg_module
+    cfg_module._settings = None
 
 
 def test_sanitize_removes_injection():

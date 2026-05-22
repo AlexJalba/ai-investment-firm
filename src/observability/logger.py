@@ -23,7 +23,6 @@ def configure_logging(log_level: str = "INFO", audit_log_path: str = "./data/aud
     structlog.configure(
         processors=[
             structlog.stdlib.add_log_level,
-            structlog.stdlib.add_logger_name,
             structlog.processors.TimeStamper(fmt="iso"),
             structlog.processors.StackInfoRenderer(),
             structlog.processors.JSONRenderer(),
