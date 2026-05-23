@@ -1,0 +1,60 @@
+{
+  "period": {
+    "start": "2024-10-25",
+    "end": "2024-10-31"
+  },
+  "tickers": [
+    "AAPL",
+    "MSFT",
+    "GOOGL",
+    "AMZN",
+    "NVDA"
+  ],
+  "trading_days": 5,
+  "portfolio_return_pct": 0.03,
+  "benchmark_return_pct": 0.17,
+  "alpha_pct": -0.14,
+  "grounding_score": 1.0,
+  "hitl_decisions": {
+    "approve": 0,
+    "reject": 0,
+    "edit": 0
+  },
+  "daily_results": [
+    {
+      "date": "2024-10-25",
+      "start_value": 1000000.0,
+      "end_value": 999988.9209537887,
+      "pnl_pct": -1.1079046211321838e-05,
+      "trades": 4
+    },
+    {
+      "date": "2024-10-28",
+      "start_value": 999999.5499999999,
+      "end_value": 1000035.4175358199,
+      "pnl_pct": 3.5867551960396396e-05,
+      "trades": 0
+    },
+    {
+      "date": "2024-10-29",
+      "start_value": 999999.5499999999,
+      "end_value": 1000247.3151951217,
+      "pnl_pct": 0.0002477653066161438,
+      "trades": 0
+    },
+    {
+      "date": "2024-10-30",
+      "start_value": 999999.5499999999,
+      "end_value": 1000284.1314487838,
+      "pnl_pct": 0.0002845815768455748,
+      "trades": 0
+    },
+    {
+      "date": "2024-10-31",
+      "start_value": 999999.5499999999,
+      "end_value": 1000284.1314487838,
+      "pnl_pct": 0.0002845815768455748,
+      "trades": 0
+    }
+  ]
+}
