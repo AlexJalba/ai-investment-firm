@@ -1,7 +1,7 @@
 """Paper trading engine — fills orders with slippage + commission, updates state."""
 from __future__ import annotations
 
-from datetime import UTC, datetime
+from datetime import UTC, datetime, timezone, timedelta
 
 from src.config import get_settings
 from src.observability.logger import audit, get_logger
@@ -74,8 +74,17 @@ class PaperTradingEngine:
             total_value=total_market_value,
         )
 
-    def execute(self, order: TradeOrder, market_price: float) -> FillResult:
+    def execute(self, order: TradeOrder, market_price: float, trade_date: str | None = None) -> FillResult:
         """Simulate a fill with slippage and commission, then persist."""
+        # Use trade_date for the date part, current wall-clock time (UTC+2) for the time part
+        il_tz = timezone(timedelta(hours=2))
+        now_il = datetime.now(il_tz)
+        if trade_date:
+            from datetime import date as date_type
+            d = date_type.fromisoformat(trade_date)
+            as_of = datetime(d.year, d.month, d.day, now_il.hour, now_il.minute, now_il.second, tzinfo=il_tz)
+        else:
+            as_of = now_il
         slippage_mult = 1 + (self.cfg.slippage_bps / 10_000) * (1 if order.side == Side.BUY else -1)
         fill_price = market_price * slippage_mult
         slippage_amt = abs(fill_price - market_price) * order.shares
@@ -96,12 +105,12 @@ class PaperTradingEngine:
                 state.cash += notional - commission
                 state.realized_pnl += realized
 
-            state.as_of = datetime.now(UTC)
+            state.as_of = as_of
             state.total_value = state.cash + self._holdings_value(session, {order.ticker: fill_price})
 
             session.add(
                 TradeORM(
-                    executed_at=datetime.now(UTC),
+                    executed_at=as_of,
                     ticker=order.ticker,
                     side=order.side.value,
                     shares=order.shares,
@@ -123,7 +132,7 @@ class PaperTradingEngine:
             notional=notional,
             commission=commission,
             slippage=slippage_amt,
-            executed_at=datetime.now(UTC),
+            executed_at=as_of,
         )
         audit(
             "trade.filled",

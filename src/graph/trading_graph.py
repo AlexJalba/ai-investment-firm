@@ -106,7 +106,7 @@ def node_hitl(state: TradingDayState) -> dict:
 def node_execution(state: TradingDayState) -> dict:
     engine = PaperTradingEngine()
     trace_id = str(uuid.uuid4())[:8]
-    fills = run_execution_agent(state.get("trade_proposals", []), state["market_prices"], engine, trace_id)
+    fills = run_execution_agent(state.get("trade_proposals", []), state["market_prices"], engine, trace_id, trade_date=state["trade_date"])
     return {
         "filled_trades": fills,
         "messages": [AIMessage(content=f"Executed {len(fills)} fill(s)", name="execution_agent")],

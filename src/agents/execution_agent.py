@@ -15,6 +15,7 @@ def run_execution_agent(
     market_prices: dict[str, float],
     engine: PaperTradingEngine,
     trace_id: str = "",
+    trade_date: str | None = None,
 ) -> list[dict]:
     """Execute approved trades and return fill results."""
     cfg = get_settings()
@@ -39,7 +40,7 @@ def run_execution_agent(
             )
 
             try:
-                fill = engine.execute(order, price)
+                fill = engine.execute(order, price, trade_date=trade_date)
                 fills.append(fill.model_dump())
                 logger.info(
                     "execution.filled",
