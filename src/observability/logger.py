@@ -9,7 +9,7 @@ import structlog
 from opentelemetry import trace
 from opentelemetry.sdk.resources import Resource
 from opentelemetry.sdk.trace import TracerProvider
-from opentelemetry.sdk.trace.export import BatchSpanProcessor, ConsoleSpanExporter
+from opentelemetry.sdk.trace.export import BatchSpanProcessor
 
 _configured = False
 _audit_lock = threading.Lock()
@@ -43,8 +43,6 @@ def configure_logging(log_level: str = "INFO", audit_log_path: str = "./data/aud
             provider.add_span_processor(BatchSpanProcessor(OTLPSpanExporter(endpoint=otlp_endpoint)))
         except Exception:
             pass  # OTLP is optional
-    else:
-        provider.add_span_processor(BatchSpanProcessor(ConsoleSpanExporter()))
 
     trace.set_tracer_provider(provider)
     Path(audit_log_path).parent.mkdir(parents=True, exist_ok=True)
