@@ -179,6 +179,12 @@ def run_trading_day(
     cfg = get_settings()
     configure_logging(cfg.log_level, cfg.audit_log_path, cfg.otlp_endpoint)
 
+    # Clear audit log so dashboard shows only the current run
+    from pathlib import Path
+    audit_path = Path(cfg.audit_log_path)
+    if audit_path.exists():
+        audit_path.write_text("")
+
     graph = build_graph()
     trade_date = trade_date or date.today().isoformat()
 
