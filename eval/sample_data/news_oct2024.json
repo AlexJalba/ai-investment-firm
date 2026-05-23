@@ -102,5 +102,165 @@
     "url": "https://example.com/spy-oct-2024",
     "source": "MarketWatch",
     "published": "2024-10-31"
+  },
+  {
+    "ticker": "AAPL",
+    "title": "Apple Services margin hits record 74%, analysts raise price targets",
+    "summary": "Apple's Services segment — which includes the App Store, iCloud, Apple TV+, and Apple Pay — posted a gross margin of 74.1% in Q4 FY2024, a record high. Analysts at Oppenheimer raised their price target to $275, noting that Services now contributes over 35% of total gross profit despite being only 26% of revenue.",
+    "url": "https://example.com/aapl-services-margin",
+    "source": "Oppenheimer",
+    "published": "2024-10-31"
+  },
+  {
+    "ticker": "AAPL",
+    "title": "Apple Vision Pro sales disappoint but developer ecosystem grows",
+    "summary": "Apple Vision Pro unit sales remain below initial projections at approximately 500,000 units since launch, but the developer ecosystem has expanded to over 2,500 native visionOS apps. Analysts at Morgan Stanley view the slow ramp as typical for new platform categories and maintain their $230 price target, expecting a lower-priced model in 2025.",
+    "url": "https://example.com/aapl-vision-pro",
+    "source": "Morgan Stanley",
+    "published": "2024-10-17"
+  },
+  {
+    "ticker": "AAPL",
+    "title": "Apple India revenue surges 30% as China headwinds persist",
+    "summary": "Apple reported 30% revenue growth in India for FY2024, now a top-5 market. The company opened two flagship stores in Mumbai and Delhi. Meanwhile, China revenue declined 2% YoY amid rising competition from Huawei. Analysts at UBS note India is becoming a critical growth driver as China market share stabilizes.",
+    "url": "https://example.com/aapl-india-china",
+    "source": "UBS",
+    "published": "2024-10-14"
+  },
+  {
+    "ticker": "AAPL",
+    "title": "Apple buyback program reaches $110 billion in FY2024, boosting EPS",
+    "summary": "Apple repurchased $110 billion of its own shares in fiscal year 2024, reducing share count by approximately 3.5%. The buyback program, the largest in corporate history, contributed an estimated $0.12 to FY2024 EPS. The board authorized an additional $90 billion repurchase program for FY2025.",
+    "url": "https://example.com/aapl-buyback",
+    "source": "Financial Times",
+    "published": "2024-10-09"
+  },
+  {
+    "ticker": "MSFT",
+    "title": "Microsoft GitHub Copilot revenue run rate surpasses $500 million",
+    "summary": "Microsoft disclosed that GitHub Copilot, its AI coding assistant, has reached a $500 million annual revenue run rate with over 1.8 million paid subscribers. Enterprise adoption is accelerating with 77,000 organizations using the tool. Piper Sandler raised its price target to $510, noting Copilot is becoming a meaningful contributor to the More Personal Computing segment.",
+    "url": "https://example.com/msft-github-copilot",
+    "source": "Piper Sandler",
+    "published": "2024-10-28"
+  },
+  {
+    "ticker": "MSFT",
+    "title": "Microsoft Azure AI capacity constraints easing into 2025, CFO says",
+    "summary": "Microsoft CFO Amy Hood told analysts that AI capacity constraints that limited Azure revenue in Q4 FY2024 are easing as new data center builds come online. The company committed $60 billion in capital expenditure for FY2025, the majority allocated to AI infrastructure. JPMorgan raised its price target to $480.",
+    "url": "https://example.com/msft-azure-capacity",
+    "source": "JPMorgan",
+    "published": "2024-10-16"
+  },
+  {
+    "ticker": "MSFT",
+    "title": "Microsoft Teams reaches 320 million monthly active users, Slack gap widens",
+    "summary": "Microsoft Teams surpassed 320 million monthly active users in Q1 FY2025, widening its lead over Slack. The integration of Copilot into Teams is driving premium seat upgrades. Analysts at Jefferies note Teams is becoming a key monetization lever for the Microsoft 365 Copilot upsell, maintaining Buy at $490.",
+    "url": "https://example.com/msft-teams",
+    "source": "Jefferies",
+    "published": "2024-10-08"
+  },
+  {
+    "ticker": "MSFT",
+    "title": "Microsoft faces EU antitrust probe over Teams bundling with Office 365",
+    "summary": "The European Commission opened a formal antitrust investigation into Microsoft's bundling of Teams with Microsoft 365. This follows a similar probe that led to Teams being unbundled in the EU in 2023. Analysts consider the financial impact limited — EU revenue from Teams bundling represents less than 2% of total revenue — but the regulatory risk adds uncertainty.",
+    "url": "https://example.com/msft-eu-antitrust",
+    "source": "Reuters",
+    "published": "2024-10-03"
+  },
+  {
+    "ticker": "GOOGL",
+    "title": "Google Cloud wins major financial services contracts worth $2 billion",
+    "summary": "Alphabet disclosed several new Google Cloud contracts in Q3, including a $1.2 billion multi-year deal with HSBC and a $800 million agreement with Deutsche Bank for core banking migration. The deals push Google Cloud's total contracted backlog above $100 billion for the first time. Analysts at Citi raised their price target to $220.",
+    "url": "https://example.com/googl-cloud-contracts",
+    "source": "Citi",
+    "published": "2024-10-24"
+  },
+  {
+    "ticker": "GOOGL",
+    "title": "Alphabet YouTube Shorts monetization rate improving, closing gap with TikTok",
+    "summary": "Alphabet management noted that YouTube Shorts monetization rate improved 30% YoY in Q3 2024, narrowing the gap with long-form YouTube content. Shorts now generates over $3 billion in annual revenue. Analysts at Bernstein view Shorts as an underappreciated revenue driver, raising their price target to $215.",
+    "url": "https://example.com/googl-shorts",
+    "source": "Bernstein",
+    "published": "2024-10-11"
+  },
+  {
+    "ticker": "GOOGL",
+    "title": "Google faces DOJ breakup ruling risk after losing antitrust case",
+    "summary": "The US Department of Justice is pursuing remedies in its antitrust case against Google Search, with potential outcomes ranging from behavioral remedies to structural separation of Chrome and Android. Analysts at Evercore ISI note the worst-case breakup scenario is unlikely but creates headline risk. They maintain Outperform with a $195 price target.",
+    "url": "https://example.com/googl-doj",
+    "source": "Evercore ISI",
+    "published": "2024-10-07"
+  },
+  {
+    "ticker": "GOOGL",
+    "title": "Alphabet Waymo robotaxi expands to San Francisco and Austin, revenue model emerging",
+    "summary": "Waymo, Alphabet's autonomous vehicle subsidiary, expanded commercial robotaxi operations to San Francisco and Austin in October, following its Los Angeles launch. The service completed over 100,000 paid rides in its first month in SF. Analysts estimate Waymo could reach $1 billion in revenue by 2026, representing a meaningful option value for Alphabet.",
+    "url": "https://example.com/googl-waymo",
+    "source": "Bank of America",
+    "published": "2024-10-02"
+  },
+  {
+    "ticker": "AMZN",
+    "title": "Amazon advertising revenue hits $14.7 billion, growing 19% YoY",
+    "summary": "Amazon's advertising services segment posted $14.7 billion in Q3 2024 revenue, up 19% YoY, making it the third-largest digital ad platform behind Google and Meta. Sponsored Products and Prime Video ads drove growth. Analysts at Needham note advertising is now Amazon's highest-margin business segment at over 50% operating margin.",
+    "url": "https://example.com/amzn-ads",
+    "source": "Needham",
+    "published": "2024-10-31"
+  },
+  {
+    "ticker": "AMZN",
+    "title": "Amazon Prime membership reaches 200 million globally, ARPU rising",
+    "summary": "Amazon disclosed that Prime membership surpassed 200 million globally, with average revenue per user growing 8% YoY driven by price increases and expanded benefits. Prime Video's ad-supported tier launched in January 2024 is ahead of monetization targets. Analysts at Cowen raised their price target to $240.",
+    "url": "https://example.com/amzn-prime",
+    "source": "Cowen",
+    "published": "2024-10-18"
+  },
+  {
+    "ticker": "AMZN",
+    "title": "Amazon logistics network investment paying off with same-day delivery expansion",
+    "summary": "Amazon expanded same-day delivery to 40 additional US metro areas in Q3 2024, now covering 120 markets. Delivery cost per unit declined 12% YoY as the regionalized fulfillment network matures. Analysts at Baird note the logistics moat is widening, maintaining Outperform with a $225 price target.",
+    "url": "https://example.com/amzn-logistics",
+    "source": "Baird",
+    "published": "2024-10-10"
+  },
+  {
+    "ticker": "AMZN",
+    "title": "Amazon Bedrock AI platform gains traction with 10,000 enterprise customers",
+    "summary": "Amazon Bedrock, the managed AI model service on AWS, now has over 10,000 active enterprise customers, up from 2,500 a year ago. The platform hosts models from Anthropic, Meta, and Mistral alongside Amazon's own Titan models. Analysts at Stifel view Bedrock as a key differentiator for AWS in the enterprise AI buildout cycle.",
+    "url": "https://example.com/amzn-bedrock",
+    "source": "Stifel",
+    "published": "2024-10-22"
+  },
+  {
+    "ticker": "NVDA",
+    "title": "Nvidia announces NIM microservices platform for enterprise AI deployment",
+    "summary": "Nvidia launched NIM (Nvidia Inference Microservices), a platform that packages optimized AI models for enterprise deployment on any infrastructure. Over 200 enterprise customers including SAP, ServiceNow and Accenture are piloting NIM. Analysts at Mizuho view NIM as Nvidia's move up the software stack, potentially expanding gross margins beyond current 75% levels.",
+    "url": "https://example.com/nvda-nim",
+    "source": "Mizuho",
+    "published": "2024-10-29"
+  },
+  {
+    "ticker": "NVDA",
+    "title": "Nvidia Grace Blackwell superchip adopted by all major cloud providers",
+    "summary": "All three major hyperscalers — AWS, Microsoft Azure, and Google Cloud — confirmed they will offer Nvidia GB200 Grace Blackwell superchip instances in 2025. The GB200 delivers 30x performance improvement over H100 for inference workloads. Raymond James raised its price target to $200, citing accelerating hyperscaler capex commitments.",
+    "url": "https://example.com/nvda-gb200",
+    "source": "Raymond James",
+    "published": "2024-10-15"
+  },
+  {
+    "ticker": "NVDA",
+    "title": "Nvidia gross margin under pressure as Blackwell ramp costs bite",
+    "summary": "Nvidia CFO Colette Kress warned that gross margins will temporarily compress to 70-72% in Q3 FY2025 as Blackwell ramp costs — including higher CoWoS packaging costs and initial yield losses — weigh on profitability. The dip is expected to be temporary, with margins recovering to 75%+ by mid-2025. Some analysts trimmed near-term estimates.",
+    "url": "https://example.com/nvda-margins",
+    "source": "Barclays Research",
+    "published": "2024-10-04"
+  },
+  {
+    "ticker": "NVDA",
+    "title": "China export restrictions tighten, Nvidia H20 chip sales at risk",
+    "summary": "The Biden administration announced tighter export controls on AI chips sold to China, targeting the H20 chip Nvidia designed specifically to comply with prior restrictions. Analysts estimate China represents 15-20% of Nvidia's data center revenue. Nvidia shares fell 4% on the news. Analysts at HSBC downgraded to Hold citing China revenue uncertainty.",
+    "url": "https://example.com/nvda-china-export",
+    "source": "HSBC",
+    "published": "2024-10-26"
   }
 ]
