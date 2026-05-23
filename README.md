@@ -5,19 +5,59 @@ A production-grade multi-agent AI system that operates a simulated US equity inv
 ## Architecture
 
 ```
-┌─────────────────────────────────────────────────────────────────┐
-│                       LangGraph Trading Day                      │
-│                                                                   │
-│  fetch_prices → research → portfolio_manager → risk              │
-│                                                         ↓        │
-│                                              ┌─ approved         │
-│                                              └─ hitl_pending ──► │
-│                                                      │           │
-│                                              Risk Committee       │
-│                                              (human CLI)         │
-│                                                      │           │
-│                                              execution → report  │
-└─────────────────────────────────────────────────────────────────┘
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                          LangGraph Orchestration                             ║
+║                                                                              ║
+║   ┌─────────────┐   ┌──────────┐   ┌──────────────────┐   ┌─────────────┐  ║
+║   │ fetch_prices│──▶│ research │──▶│ portfolio_manager │──▶│    risk     │  ║
+║   └─────────────┘   └────┬─────┘   └──────────────────┘   └──────┬──────┘  ║
+║                           │    TradingDayState flows               │         ║
+║                           │    through every node                 ▼         ║
+║   ┌───────────────────┐   │                              approved / hitl?    ║
+║   │   RAG Store       │   │                                       │         ║
+║   │  (ChromaDB)       │◀──┘  query per ticker                     │         ║
+║   │  cosine similarity│      metadata filter                  ┌───▼──────┐  ║
+║   │  384-dim MiniLM   │                                        │   hitl   │  ║
+║   └───────────────────┘                              ┌─ halt ──┴──────────┘  ║
+║                                                      │         │             ║
+║                                                      │    Risk Committee     ║
+║                                                      │    (human CLI prompt) ║
+║                                                      │         │             ║
+║                                                      │    ┌────▼──────────┐  ║
+║                                                      │    │   execution   │  ║
+║                                                      │    └────┬──────────┘  ║
+║                                                      │         │             ║
+║                                                      └────▶┌───▼──────────┐  ║
+║                                                            │  reporting   │  ║
+║                                                            └──────────────┘  ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                             Persistence Layer                                ║
+║                                                                              ║
+║   SQLite (WAL)          ChromaDB               JSONL audit log               ║
+║   ├── holdings          ├── embeddings         └── every trade, risk         ║
+║   ├── cash              └── metadata               decision, HITL event      ║
+║   └── trade history         (ticker filter)        and report — immutable    ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                            Observability                                     ║
+║                                                                              ║
+║   structlog → stdout (JSON)      OpenTelemetry spans (OTLP, optional)        ║
+║   FastAPI dashboard → http://localhost:8080  (audit log + portfolio state)   ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                              Deployment                                      ║
+║                                                                              ║
+║   Single Docker container                                                    ║
+║   └── ./data mounted as volume                                               ║
+║       ├── portfolio.db      (SQLite)                                         ║
+║       ├── chroma/           (ChromaDB)                                       ║
+║       ├── audit.jsonl                                                        ║
+║       └── reports/          (.xlsx per trading day)                          ║
+╚══════════════════════════════════════════════════════════════════════════════╝
 ```
 
 ### Agents
@@ -42,47 +82,47 @@ A production-grade multi-agent AI system that operates a simulated US equity inv
 
 ## Quick Start
 
-### Prerequisites
+### Option A — Zero API key (offline demo, under 10 minutes)
 
-- Python 3.11+
-- An Anthropic API key
-
-### Install
+No Anthropic key required. All LLM calls are replaced by deterministic fixtures.
 
 ```bash
 git clone https://github.com/AlexJalba/ai-investment-firm.git
 cd ai-investment-firm
 python -m venv .venv && source .venv/bin/activate
 pip install -e ".[dev]"
-cp .env.example .env
-# Edit .env and set ANTHROPIC_API_KEY=sk-ant-...
+cp .env.example .env          # no key needed for mock mode
+
+# Seed ChromaDB from committed sample news, wipe portfolio DB, run trading day
+bash scripts/seed_and_trade.sh
 ```
 
-### Run a trading day
+The script will pause at the **Risk Committee** step — one trade (AAPL, ~$57k notional) exceeds the $50k HITL threshold. Approve or reject it in the terminal, then execution and reporting complete automatically.
 
 ```bash
-# Trade the default tech universe (AAPL MSFT GOOGL AMZN NVDA)
-python -m src.cli trade
-
-# Trade specific tickers on a specific date
-python -m src.cli trade AAPL TSLA NVDA --date 2024-11-01
-```
-
-When trades exceed $50,000 notional, the terminal pauses for **Risk Committee review**. You will be prompted to approve, reject, or resize each trade.
-
-### Start the dashboard
-
-```bash
+# Open the dashboard to see portfolio state, daily narrative, and audit log
 python -m src.cli dashboard
-# Open http://localhost:8080
+# http://localhost:8080
 ```
 
-The dashboard auto-refreshes every 30 seconds and shows live portfolio state, the latest daily narrative, and the audit log.
+The committed sample run is already visible in the dashboard at startup (`sample_run/2024-10-31/`).
 
-### Pre-populate the RAG store
+---
+
+### Option B — Live API key
 
 ```bash
-python -m src.cli ingest AAPL MSFT GOOGL AMZN NVDA
+cp .env.example .env
+# Edit .env: set ANTHROPIC_API_KEY=sk-ant-...
+
+# Seed RAG from committed news corpus
+python scripts/seed_rag.py
+
+# Run a trading day
+python -m src.cli trade AAPL MSFT GOOGL AMZN NVDA --date 2024-10-25
+
+# Start dashboard
+python -m src.cli dashboard
 ```
 
 ### Run the eval harness
@@ -96,7 +136,7 @@ Outputs `data/eval/eval_report.json` with portfolio return vs SPY, grounding sco
 ### Docker
 
 ```bash
-cp .env.example .env  # set your API key
+cp .env.example .env  # set your API key (or leave blank for mock mode)
 docker compose up
 # Dashboard at http://localhost:8080
 # Trade: docker compose run firm python -m src.cli trade
@@ -122,7 +162,7 @@ Portfolio cash, holdings, cost basis, and P&L are stored in SQLite with WAL mode
 ChromaDB with cosine similarity. Every research note must include at least one citation or it is downgraded to `hold` with `confidence < 0.4`. Web-sourced text is sanitized against prompt injection before ingestion.
 
 ### Human-in-the-Loop
-Trades above the `TRADE_NOTIONAL_HITL_THRESHOLD` (default $50k) pause the graph. LangGraph persists the full state during the wait. The human can approve, reject, or resize each trade. The decision is written to the audit log.
+Trades above the `TRADE_NOTIONAL_HITL_THRESHOLD` (default $50k) pause the graph within the same process. The Risk Agent flags them, the CLI prompts the human to approve, reject, or resize each trade, and then execution resumes. The decision is written to the audit log. If the process crashes mid-run, the trading day is re-run from scratch — market data and news are re-fetched, ensuring analysis is always based on current information.
 
 ### Observability
 - **Structured logs**: every agent invocation emits JSON via `structlog`
