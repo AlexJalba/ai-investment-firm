@@ -73,7 +73,7 @@ TRADE_PROPOSALS: list[dict] = [
     {
         "ticker": "AAPL",
         "side": "BUY",
-        "shares": 25,
+        "shares": 250,
         "rationale": "Strong Q4 beat, Services record, AI upgrade cycle underway. High confidence.",
         "citations": ["[1] Reuters Q4 beat", "[2] Bloomberg iOS 18.1 upgrade"],
         "confidence": 0.82,
