@@ -1,9 +1,10 @@
 #!/bin/bash
 set -e
 
+cd "$(dirname "$0")/.."
+
 export MOCK_LLM=true
 export ANTHROPIC_API_KEY=mock-key
-export PYTHONPATH=/Users/I074992/IdeaProjects/ai-investment-firm
 
 echo "Seeding RAG store..."
 .venv/bin/python scripts/seed_rag.py

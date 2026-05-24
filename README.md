@@ -91,7 +91,7 @@ git clone https://github.com/AlexJalba/ai-investment-firm.git
 cd ai-investment-firm
 python -m venv .venv && source .venv/bin/activate
 pip install -e ".[dev]"
-cp .env.example .env          # no key needed for mock mode
+cp .env.example .env          # set MOCK_LLM=true; ANTHROPIC_API_KEY can be any non-empty value
 
 # Seed ChromaDB from committed sample news, wipe portfolio DB, run trading day
 bash scripts/seed_and_trade.sh
@@ -136,7 +136,7 @@ Outputs `data/eval/eval_report.json` with portfolio return vs SPY, grounding sco
 ### Docker
 
 ```bash
-cp .env.example .env  # set your API key (or leave blank for mock mode)
+cp .env.example .env  # for mock mode set MOCK_LLM=true (ANTHROPIC_API_KEY must still be non-empty)
 docker compose up
 # Dashboard at http://localhost:8080
 # Trade: docker compose run firm python -m src.cli trade
